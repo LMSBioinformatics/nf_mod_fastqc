@@ -1,8 +1,10 @@
 process fastqc {
+    tag "${name}"
+
     cpus 1
     memory 512.MB
     time { max(60, n_reads * 7e-06)  }.s
-    tag name
+
     module params.fastqc._module
 
     input:
