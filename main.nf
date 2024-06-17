@@ -5,6 +5,8 @@ process fastqc {
     memory 512.MB
     time { max(60, n_reads * 7e-06)  }.s
 
+    publishDir 'qc/fastqc', mode: copy
+
     module params.fastqc._module
 
     input:
