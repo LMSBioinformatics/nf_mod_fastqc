@@ -3,7 +3,8 @@ process fastqc {
 
     cpus 1
     memory 512.MB
-    time "${t = (n_reads.toInteger() * 1.2 * 7e-06) as int; t < 60 ? 60 : t}s"
+    time 1.h
+    // time "${t = (n_reads.toInteger() * 1.2 * 7e-06) as int; t < 60 ? 60 : t}s"
 
     publishDir 'qc/fastqc', mode: "copy"
 
