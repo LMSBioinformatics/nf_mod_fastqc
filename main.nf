@@ -8,6 +8,7 @@ process fastqc {
 
     publishDir 'qc/fastqc', mode: "copy"
 
+    beforeScript "module reset"
     module params.fastqc._module
 
     input:
