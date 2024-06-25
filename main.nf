@@ -27,12 +27,8 @@ process fastqc {
 
     script:
     if (r2) {
-        run_str = """
-        zcat ${r1} | fastqc stdin:${name}_1.fastq.gz
-        zcat ${r2} | fastqc stdin:${name}_2.fastq.gz
-        """
+        "zcat ${r1} | fastqc stdin:${name}_1.fastq.gz && zcat ${r2} | fastqc stdin:${name}_2.fastq.gz"
     } else {
-        run_str = "zcat ${r1} | fastqc stdin:${name}.fastq.gz"
+        "zcat ${r1} | fastqc stdin:${name}.fastq.gz"
     }
-    run_str.stripIndent()
 }
