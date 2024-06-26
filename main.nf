@@ -10,14 +10,15 @@ process fastqc {
         mode: "copy",
         pattern: "*.html"
 
-    beforeScript "module reset"
+    beforeScript "module reset &> /dev/null"
     module params.fastqc._module
 
     input:
-    tuple val(name), path(r1), path(r2), val(n_reads)
+    tuple val(name), path(r1), path(r2)
 
     output:
-    path '*_fastqc.{zip,html}'
+    tuple val(name), stdout, emit: n_reads
+    path '*_fastqc.{zip,html}', emit: files
 
     stub:
     if (r2) {
@@ -29,8 +30,19 @@ process fastqc {
 
     script:
     if (r2) {
-        "zcat ${r1} | fastqc stdin:${name}_1.fastq.gz && zcat ${r2} | fastqc stdin:${name}_2.fastq.gz"
+        """
+zcat ${r1} | fastqc -q stdin:${name}_1.fastq.gz &> /dev/null\
+&& zcat ${r2} | fastqc -q stdin:${name}_2.fastq.gz  &> /dev/null\
+&& unzip -p ${name}_1_fastqc.zip ${name}_1_fastqc/fastqc_data.txt \
+| grep "^Total Sequences" \
+| cut -f2
+"""
     } else {
-        "zcat ${r1} | fastqc stdin:${name}.fastq.gz"
+        """
+zcat ${r1} | fastqc -q stdin:${name}.fastq.gz  &> /dev/null\
+&& unzip -p ${name}_fastqc.zip ${name}_fastqc/fastqc_data.txt \
+| grep "^Total Sequences" \
+| cut -f2
+"""
     }
 }
