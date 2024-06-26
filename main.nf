@@ -7,7 +7,8 @@ process fastqc {
     // time "${t = (n_reads.toInteger() * 1.2 * 7e-06) as int; t < 60 ? 60 : t}s"
 
     publishDir "${params.outdir}/qc/fastqc",
-        mode: "copy"
+        mode: "copy",
+        pattern: "*.html"
 
     beforeScript "module reset"
     module params.fastqc._module
