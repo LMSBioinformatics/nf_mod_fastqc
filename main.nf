@@ -91,7 +91,7 @@ process count_undetermined {
 
     output:
     stdout emit: n_undetermined
-    path "Undetermined_barcodes.csv", optional: true
+    path "Undetermined_barcodes.csv", optional: true, emit: files
 
     script:
     """
