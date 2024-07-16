@@ -57,7 +57,7 @@ process count_reads {
     tag "${name}"
 
     cpus 1
-    memory 256.MB
+    memory 512.MB
     time 6.h
 
     input:
@@ -79,7 +79,7 @@ most common
 */
 process count_undetermined {
     cpus 1
-    memory 256.MB
+    memory 512.MB
     time 6.h
 
     publishDir "${params.outdir}/qc",
