@@ -79,7 +79,7 @@ most common
 */
 process count_undetermined {
     cpus 1
-    memory 1.GB
+    memory 4.GB
     time 1.h
 
     publishDir "${params.outdir}/qc",
