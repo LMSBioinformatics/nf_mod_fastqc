@@ -5,7 +5,7 @@ process fastqc {
     tag "${name}"
 
     cpus 1
-    memory 512.MB
+    memory 1.GB
     time 1.h
     // time "${t = (n_reads.toInteger() * 1.2 * 7e-06) as int; t < 60 ? 60 : t}s"
 
@@ -57,8 +57,8 @@ process count_reads {
     tag "${name}"
 
     cpus 1
-    memory 512.MB
-    time 6.h
+    memory 1.GB
+    time 1.h
 
     input:
     tuple val(name), path(r1), path(r2)
@@ -79,8 +79,8 @@ most common
 */
 process count_undetermined {
     cpus 1
-    memory 512.MB
-    time 6.h
+    memory 1.GB
+    time 1.h
 
     publishDir "${params.outdir}/qc",
         mode: "copy",
